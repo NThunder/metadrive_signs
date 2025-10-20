@@ -29,12 +29,15 @@ class SimpleTrafficManager(BaseManager):
         """
         self.arrive_dest = False
         path_to_follow = []
-        for lane_index in ["lane_4_0", "lane_:306_0_0", "lane_22_0"]:
+        print("Available lane IDs:")
+        for lane_id in self.engine.current_map.road_network.graph.keys():
+            print(lane_id)
+        for lane_index in ["lane_:2_0_0", "lane_:4_0_0", "lane_-65_1"]:
             path_to_follow.append(self.engine.current_map.road_network.get_lane(lane_index).get_polyline())
         path_to_follow = np.concatenate(path_to_follow, axis=0)
 
         self.generated_v = self.spawn_object(
-            SVehicle, vehicle_config=dict(), position=path_to_follow[60], heading=-np.pi
+            SVehicle, vehicle_config=dict(), position=path_to_follow[0], heading=-np.pi
         )
         TrajectoryIDMPolicy.NORMAL_SPEED = 20
         self.add_policy(
@@ -80,7 +83,7 @@ class MyEnv(BaseEnv):
     def setup_engine(self):
         """Register the map manager"""
         super().setup_engine()
-        map_path = AssetLoader.file_path("carla", "CARLA_town01.net.xml", unix_style=False)
+        map_path = AssetLoader.file_path("carla", "/home/gbuhtuev/pdd/map_1.net.xml", unix_style=False)
         self.engine.register_manager("map_manager", SumoMapManager(map_path))
         self.engine.register_manager("traffic_manager", SimpleTrafficManager())
 
@@ -91,9 +94,9 @@ if __name__ == "__main__":
         dict(
             use_render=True,
             vehicle_config={"spawn_position_heading": [(0, 0), np.pi / 2]},
-            manual_control=True,  # we usually manually control the car to test environment
+            manual_control=False,  # we usually manually control the car to test environment
             use_mesh_terrain=True,
-            log_level=logging.CRITICAL
+            log_level=logging.CRITICAL,
         )
     )  # suppress logging message
     env.reset()

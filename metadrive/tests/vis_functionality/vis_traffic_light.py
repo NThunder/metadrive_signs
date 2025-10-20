@@ -61,4 +61,4 @@ def vis_traffic_light(render=True, manual_control=False, debug=False):
 
 
 if __name__ == "__main__":
-    vis_traffic_light(True, manual_control=True, debug=True)
+    vis_traffic_light(False, manual_control=True, debug=True)

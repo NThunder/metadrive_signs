@@ -79,6 +79,8 @@ class MetaDriveType:
     COORDINATE_METADRIVE = "metadrive"
     COORDINATE_WAYMO = "waymo"
 
+    TRAFFIC_SIGN = "traffic_sign"
+
     # deprecated
     # LIGHT_ENUM_TO_STR = {
     #     0: LANE_STATE_UNKNOWN,
