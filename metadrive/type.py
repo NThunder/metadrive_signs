@@ -79,6 +79,9 @@ class MetaDriveType:
     COORDINATE_METADRIVE = "metadrive"
     COORDINATE_WAYMO = "waymo"
 
+    TRAFFIC_SIGN = "traffic_sign"
+    STOP_LINE_VIOLATION = "STOP_LINE_VIOLATION"
+
     # deprecated
     # LIGHT_ENUM_TO_STR = {
     #     0: LANE_STATE_UNKNOWN,
@@ -94,7 +97,7 @@ class MetaDriveType:
 
     @classmethod
     def is_traffic_object(cls, type):
-        return type in [cls.TRAFFIC_CONE, cls.TRAFFIC_BARRIER, cls.TRAFFIC_OBJECT]
+        return type in [cls.TRAFFIC_CONE, cls.TRAFFIC_BARRIER, cls.TRAFFIC_OBJECT, cls.TRAFFIC_SIGN]
 
     @classmethod
     def has_type(cls, type_string: str):
@@ -110,6 +113,11 @@ class MetaDriveType:
         return type in [
             cls.LANE_SURFACE_STREET, cls.LANE_SURFACE_UNSTRUCTURE, cls.LANE_UNKNOWN, cls.LANE_BIKE_LANE,
             cls.LANE_FREEWAY
+        ]
+        
+    def is_stop_line(cls, type):
+        return type in [
+            cls.STOP_LINE_VIOLATION
         ]
 
     @classmethod

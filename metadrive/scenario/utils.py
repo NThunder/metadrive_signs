@@ -9,6 +9,7 @@ from matplotlib.pyplot import figure
 
 from metadrive.component.static_object.traffic_object import TrafficCone, TrafficBarrier
 from metadrive.component.traffic_light.base_traffic_light import BaseTrafficLight
+from metadrive.component.traffic_sign.base_stop_sign import BaseStopSign
 from metadrive.component.traffic_participants.cyclist import Cyclist
 from metadrive.component.traffic_participants.pedestrian import Pedestrian
 from metadrive.component.vehicle.base_vehicle import BaseVehicle
@@ -63,6 +64,8 @@ def get_type_from_class(obj_class):
         return MetaDriveType.TRAFFIC_BARRIER
     elif issubclass(obj_class, TrafficCone) or obj_class is TrafficCone:
         return MetaDriveType.TRAFFIC_CONE
+    elif issubclass(obj_class, BaseStopSign) or obj_class is BaseStopSign:
+        return MetaDriveType.TRAFFIC_SIGN
     else:
         return MetaDriveType.OTHER
 
