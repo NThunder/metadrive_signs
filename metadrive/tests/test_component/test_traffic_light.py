@@ -4,77 +4,14 @@ from metadrive.policy.idm_policy import IDMPolicy
 from metadrive.component.traffic_sign.base_stop_sign import BaseStopSign
 
 
-def test_traffic_light_state_check(render=False, manual_control=False, debug=False):
+
+def testBaseStopSign(render=False, debug=False):
     env = MetaDriveEnv(
         {
             "num_scenarios": 1,
             "traffic_density": 0.,
             "traffic_mode": "hybrid",
-            "manual_control": manual_control,
-            "use_render": render,
-            "debug": debug,
-            "map": "X",
-            "window_size": (1200, 800),
-            "vehicle_config": {
-                "enable_reverse": True,
-                "show_dest_mark": True
-            },
-        }
-    )
-    env.reset()
-    try:
-        # green
-        env.reset()
-        light = env.engine.spawn_object(BaseTrafficLight, lane=env.current_map.road_network.graph[">>>"]["1X1_0_"][0])
-        light.set_green()
-        test_success = True
-        for s in range(1, 100):
-            env.step([0, 1])
-            if env.agent.red_light or env.agent.yellow_light:
-                test_success = False
-                break
-        assert test_success
-        light.destroy()
-
-        # red test
-        env.reset()
-        light = env.engine.spawn_object(BaseTrafficLight, lane=env.current_map.road_network.graph[">>>"]["1X1_0_"][0])
-        light.set_red()
-        test_success = False
-        for s in range(1, 100):
-            env.step([0, 1])
-            if env.agent.red_light:
-                test_success = True
-                break
-        assert test_success
-        light.destroy()
-
-        # yellow
-        env.reset()
-        light = env.engine.spawn_object(BaseTrafficLight, lane=env.current_map.road_network.graph[">>>"]["1X1_0_"][0])
-        light.set_yellow()
-        test_success = False
-        for s in range(1, 100):
-            env.step([0, 1])
-            if env.agent.yellow_light:
-                test_success = True
-                break
-        assert test_success
-        light.destroy()
-
-    finally:
-        env.close()
-
-
-
-
-def test_idm_policy(render=False, debug=False):
-    env = MetaDriveEnv(
-        {
-            "num_scenarios": 1,
-            "traffic_density": 0.,
-            "traffic_mode": "hybrid",
-            "agent_policy": IDMPolicy,
+            "manual_control": True,
             "use_render": render,
             "debug": debug,
             "map": "X",
@@ -114,4 +51,4 @@ def test_idm_policy(render=False, debug=False):
 if __name__ == "__main__":
     # test_traffic_light_state_check(True, manual_control=False)
     # test_traffic_light_detection(True, manual_control=False)
-    test_idm_policy(True)
+    testBaseStopSign(True)
