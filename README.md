@@ -158,3 +158,11 @@ The simulator can not be built without the help from Panda3D community and the f
 - KITSUNETSUKI-Asset-Tools: https://github.com/kitsune-ONE-team/KITSUNETSUKI-Asset-Tools
 
 # metadrive_signs
+
+OSM -> MetaDrive
+
+1. Экспортируете из OSM карту map.osm и запускаете converters/osr2odm.py
+2. Конвертация из OpenDrive(Carla) в Sumo: 
+    netconvert --opendrive-files map.xodr -o map.net.xml
+3. Конвертация из Sumo в MetaDrive c добавлением знака:
+    python3 metadrive/tests/vis_env/vis_sumo_map_stop_sign.py

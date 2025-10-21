@@ -85,7 +85,7 @@ class MyEnv(BaseEnv):
     def setup_engine(self):
         """Register the map manager"""
         super().setup_engine()
-        map_path = AssetLoader.file_path("carla", "/home/gbuhtuev/pdd/map_2.net.xml", unix_style=False)
+        map_path = AssetLoader.file_path("carla", "map_2.net.xml", unix_style=False)
         self.engine.register_manager("map_manager", SumoMapManager(map_path))
         self.engine.register_manager("traffic_manager", SimpleTrafficManager())
 
